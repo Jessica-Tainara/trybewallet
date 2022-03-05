@@ -7,6 +7,7 @@ function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case 'SEND_USER_EMAIL':
     return {
+      ...state,
       email: action.email,
     };
   default:
