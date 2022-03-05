@@ -2,6 +2,7 @@
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  total: 0,
 };
 
 function walletReducer(state = INITIAL_STATE, action) {
@@ -10,6 +11,13 @@ function walletReducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       expenses: [...state.expenses, action.expense],
+      total: action.total,
+    };
+  case 'DELETE_EXPENSE':
+    return {
+      ...state,
+      expenses: state.expenses.filter((ex) => ex !== action.expense),
+      total: action.total,
     };
   default:
     return state;

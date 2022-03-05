@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addExpense } from '../actions';
+import { addExpense, deleteExpense } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -14,7 +14,7 @@ class Wallet extends React.Component {
       method: 'Cartão de crédito',
       tag: 'Alimentação',
       id: 0,
-      total: 0.00,
+      total: 0,
       currencies: [],
       listExpenses: [],
     };
@@ -24,8 +24,15 @@ class Wallet extends React.Component {
 
   componentDidMount() {
     const { expenses } = this.props;
+    let total = 0;
+    const sumExpenses = () => expenses.length > 0 && expenses.forEach((ex) => {
+      total += parseFloat(ex.value * ex.exchangeRates[ex.currency].ask);
+    });
+    sumExpenses();
     this.setState({
       listExpenses: expenses,
+      total,
+
     });
     fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())
@@ -75,7 +82,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email } = this.props;
+    const { email, dispatch } = this.props;
     const { total, currencies, value, method, tag, listExpenses } = this.state;
     return (
       <div>
@@ -190,6 +197,15 @@ class Wallet extends React.Component {
                       <button
                         type="button"
                         data-testid="delete-btn"
+                        onClick={ () => {
+                          dispatch(deleteExpense(item));
+                          this.setState({
+                            listExpenses: listExpenses.filter((ex) => ex !== item),
+                            total: (
+                              parseFloat(total - Val * rates[currency].ask))
+                              .toFixed(2),
+                          });
+                        } }
                       >
                         Excluir
                       </button>
@@ -206,7 +222,8 @@ class Wallet extends React.Component {
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
-  expenses: PropTypes.string.isRequired,
+  expenses: PropTypes.func.isRequired,
+
 };
 const mapStateToProps = (state) => ({
   email: state.user.email,
