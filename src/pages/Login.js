@@ -28,27 +28,25 @@ class Login extends React.Component {
     return (
       <div>
         <h2>Login</h2>
-        <form>
-          <input
-            type="email"
-            data-testid="email-input"
-            value={ email }
-            onChange={ ({ target }) => { this.setState({ email: target.value }); } }
-          />
-          <input
-            type="password"
-            data-testid="password-input"
-            value={ password }
-            onChange={ ({ target }) => { this.setState({ password: target.value }); } }
-          />
-          <button
-            type="submit"
-            onClick={ this.handleClickSubmit }
-            disabled={ password.length < passLength || !regex.test(email) }
-          >
-            Entrar
-          </button>
-        </form>
+        <input
+          type="email"
+          data-testid="email-input"
+          value={ email }
+          onChange={ ({ target }) => { this.setState({ email: target.value }); } }
+        />
+        <input
+          type="password"
+          data-testid="password-input"
+          value={ password }
+          onChange={ ({ target }) => { this.setState({ password: target.value }); } }
+        />
+        <button
+          type="button"
+          onClick={ this.handleClickSubmit }
+          disabled={ password.length < passLength || !regex.test(email) }
+        >
+          Entrar
+        </button>
       </div>);
   }
 }
