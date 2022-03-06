@@ -42,6 +42,12 @@ class Table extends React.Component {
                     <td role="cell">
                       <button
                         type="button"
+                        data-testid="edit-btn"
+                      >
+                        Editar
+                      </button>
+                      <button
+                        type="button"
                         data-testid="delete-btn"
                         onClick={ () => {
                           dispatch(deleteExpense(item));
