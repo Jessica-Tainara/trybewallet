@@ -7,7 +7,7 @@ const INITIAL_STATE = {
 function walletReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case 'SEND_EXPENSE':
-    if (state.expense !== undefined) {
+    if (state.expense) {
       delete state.expense;
       return {
         ...state,
@@ -33,6 +33,11 @@ function walletReducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       expense: action.expense,
+    };
+  case 'GET_CURRENCIES':
+    return {
+      ...state,
+      currencies: action.list,
     };
   default:
     return state;

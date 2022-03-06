@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addExpense } from '../actions';
+import { addExpense, getCurrencies } from '../actions';
 
 class Form extends React.Component {
   constructor() {
@@ -13,19 +13,17 @@ class Form extends React.Component {
       currency: 'CAD',
       method: 'Cartão de crédito',
       tag: 'Alimentação',
-      currencies: [],
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleClickSubmit = this.handleClickSubmit.bind(this);
   }
 
   componentDidMount() {
+    const { dispatch } = this.props;
     fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())
       .then((data) => {
-        this.setState({
-          currencies: Object.keys(data),
-        });
+        dispatch(getCurrencies(Object.keys(data)));
       });
   }
 
@@ -70,8 +68,8 @@ class Form extends React.Component {
   }
 
   render() {
-    const { expense } = this.props;
-    const { currencies, value, method, tag, description, currency } = this.state;
+    const { expense, currencies } = this.props;
+    const { value, method, tag, description, currency } = this.state;
     return (
       <div>
         <form>
@@ -155,11 +153,13 @@ Form.propTypes = {
   dispatch: PropTypes.func.isRequired,
   expense: PropTypes.string.isRequired,
   expenses: PropTypes.string.isRequired,
+  currencies: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
   expenses: state.wallet.expenses,
   expense: state.wallet.expense,
+  currencies: state.wallet.currencies,
 });
 export default connect(mapStateToProps)(Form);
