@@ -1,27 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addExpense, deleteExpense } from '../actions';
+import { deleteExpense } from '../actions';
 import Header from '../components/Header';
+import Form from '../components/Form';
 
 class Wallet extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      value: 0,
-      description: '',
-      currency: 'USD',
-      method: 'Cartão de crédito',
-      tag: 'Alimentação',
-      id: 0,
       total: 0,
-      currencies: [],
       listExpenses: [],
-      edit: false,
     };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleClickSubmit = this.handleClickSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -30,131 +21,15 @@ class Wallet extends React.Component {
       listExpenses: expenses,
 
     });
-    fetch('https://economia.awesomeapi.com.br/json/all')
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({
-          currencies: Object.keys(data),
-        });
-      });
-  }
-
-  handleInputChange({ target }) {
-    const { name, value } = target;
-    this.setState({
-      [name]: value,
-    });
-  }
-
-  handleClickSubmit() {
-    const { value,
-      description,
-      currency,
-      method,
-      tag,
-      id,
-      total } = this.state;
-    const { dispatch } = this.props;
-    fetch('https://economia.awesomeapi.com.br/json/all')
-      .then((response) => response.json())
-      .then((data) => {
-        dispatch(addExpense({
-          id,
-          value,
-          description,
-          currency,
-          method,
-          tag,
-          exchangeRates: data,
-        }));
-        const { expenses } = this.props;
-        this.setState({
-          id: id + 1,
-          total: (parseFloat(total) + parseFloat(value * data[currency].ask)).toFixed(2),
-          value: 0,
-          listExpenses: expenses,
-        });
-      });
   }
 
   render() {
     const { dispatch } = this.props;
-    const { total, currencies, value, method, tag, listExpenses, edit } = this.state;
+    const { total, listExpenses } = this.state;
     return (
       <div>
         <Header />
-        <form>
-          <label htmlFor="value">
-            Valor
-            <input
-              type="number"
-              data-testid="value-input"
-              value={ value }
-              id="value"
-              name="value"
-              onChange={ this.handleInputChange }
-            />
-          </label>
-          <label htmlFor="description">
-            Descrição
-            <input
-              type="text"
-              data-testid="description-input"
-              id="description"
-              name="description"
-              onChange={ this.handleInputChange }
-            />
-          </label>
-          <label htmlFor="currency">
-            Moeda
-            <select
-              data-testid="currency-input"
-              id="currency"
-              name="currency"
-              onChange={ this.handleInputChange }
-            >
-              {currencies.map((currency) => currency !== 'USDT' && (
-                <option key={ currency } value={ currency }>{ currency }</option>
-              ))}
-            </select>
-          </label>
-          <label htmlFor="method">
-            Método de pagamento
-            <select
-              data-testid="method-input"
-              id="method"
-              name="method"
-              value={ method }
-              onChange={ this.handleInputChange }
-            >
-              <option value="Cartão de crédito">Cartão de crédito</option>
-              <option value="Cartão de débito">Cartão de débito</option>
-              <option value="Dinheiro">Dinheiro</option>
-            </select>
-          </label>
-          <label htmlFor="tag">
-            Categoria
-            <select
-              data-testid="tag-input"
-              id="tag"
-              name="tag"
-              onChange={ this.handleInputChange }
-              value={ tag }
-            >
-              <option value="Alimentação">Alimentação</option>
-              <option value="Lazer">Lazer</option>
-              <option value="Trabalho">Trabalho</option>
-              <option value="Transporte">Transporte</option>
-              <option value="Saúde">Saúde</option>
-            </select>
-          </label>
-          <button
-            type="button"
-            onClick={ this.handleClickSubmit }
-          >
-            {edit ? 'Editar despesa' : 'Adicionar despesa'}
-          </button>
-        </form>
+        <Form />
         <table border="1">
           <thead>
             <tr>
