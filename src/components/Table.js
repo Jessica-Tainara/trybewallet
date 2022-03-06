@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { deleteExpense } from '../actions';
+import { deleteExpense, editExpense } from '../actions';
 
 class Table extends React.Component {
   render() {
@@ -24,6 +24,7 @@ class Table extends React.Component {
             </tr>
           </thead>
           <tbody>
+
             {expenses
               .map((item) => {
                 const {
@@ -35,7 +36,7 @@ class Table extends React.Component {
                     <td role="cell">{Tag}</td>
                     <td role="cell">{Method}</td>
                     <td role="cell">{parseFloat(Val) % 1 === 0 ? `${Val}.00` : Val}</td>
-                    <td role="cell">{rates[currency].name}</td>
+                    <td role="cell">{rates[currency].name.split('/')[0]}</td>
                     <td role="cell">{parseFloat(rates[currency].ask).toFixed(2)}</td>
                     <td role="cell">{rates[currency].ask * Val}</td>
                     <td role="cell">Real</td>
@@ -43,6 +44,9 @@ class Table extends React.Component {
                       <button
                         type="button"
                         data-testid="edit-btn"
+                        onClick={ () => {
+                          dispatch(editExpense(item));
+                        } }
                       >
                         Editar
                       </button>

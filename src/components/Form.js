@@ -10,10 +10,9 @@ class Form extends React.Component {
     this.state = {
       value: 0,
       description: '',
-      currency: 'USD',
+      currency: 'CAD',
       method: 'Cartão de crédito',
       tag: 'Alimentação',
-      id: 0,
       currencies: [],
     };
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -38,29 +37,41 @@ class Form extends React.Component {
   }
 
   handleClickSubmit() {
-    const { dispatch } = this.props;
-    const { id, value, description, currency, method, tag } = this.state;
-    fetch('https://economia.awesomeapi.com.br/json/all')
-      .then((response) => response.json())
-      .then((data) => {
-        dispatch(addExpense({
-          id,
-          value,
-          description,
-          currency,
-          method,
-          tag,
-          exchangeRates: data,
-        }));
-        this.setState({
-          id: id + 1,
-          value: 0,
+    const { dispatch, expense, expenses } = this.props;
+    const { value, description, currency, method, tag } = this.state;
+    if (expense) {
+      dispatch(addExpense({
+        id: expense.id,
+        value,
+        description,
+        currency,
+        method,
+        tag,
+        exchangeRates: expense.exchangeRates,
+      }));
+    } else {
+      fetch('https://economia.awesomeapi.com.br/json/all')
+        .then((response) => response.json())
+        .then((data) => {
+          dispatch(addExpense({
+            id: expenses.length,
+            value,
+            description,
+            currency,
+            method,
+            tag,
+            exchangeRates: data,
+          }));
+          this.setState({
+            value: 0,
+          });
         });
-      });
+    }
   }
 
   render() {
-    const { currencies, value, method, tag } = this.state;
+    const { expense } = this.props;
+    const { currencies, value, method, tag, description, currency } = this.state;
     return (
       <div>
         <form>
@@ -82,6 +93,7 @@ class Form extends React.Component {
               data-testid="description-input"
               id="description"
               name="description"
+              value={ description }
               onChange={ this.handleInputChange }
             />
           </label>
@@ -92,9 +104,10 @@ class Form extends React.Component {
               id="currency"
               name="currency"
               onChange={ this.handleInputChange }
+              value={ currency }
             >
-              {currencies.map((currency) => currency !== 'USDT' && (
-                <option key={ currency } value={ currency }>{ currency }</option>
+              {currencies.map((curr) => curr !== 'USDT' && (
+                <option key={ curr } value={ curr }>{ curr }</option>
               ))}
             </select>
           </label>
@@ -131,7 +144,7 @@ class Form extends React.Component {
             type="button"
             onClick={ this.handleClickSubmit }
           >
-            Adicionar despesa
+            {expense ? 'Editar despesa' : 'Adicionar despesa'}
           </button>
         </form>
       </div>);
@@ -140,10 +153,13 @@ class Form extends React.Component {
 
 Form.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  expense: PropTypes.string.isRequired,
+  expenses: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
   expenses: state.wallet.expenses,
+  expense: state.wallet.expense,
 });
 export default connect(mapStateToProps)(Form);

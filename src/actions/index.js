@@ -4,14 +4,16 @@ export const addUserEmail = (email) => ({
   email,
 });
 
-export const addExpense = (expense, total) => ({
+export const addExpense = (expense) => ({
   type: 'SEND_EXPENSE',
   expense,
-  total,
 });
 
-export const deleteExpense = (expense, total) => ({
+export const deleteExpense = (expense) => ({
   type: 'DELETE_EXPENSE',
   expense,
-  total,
+});
+export const editExpense = (expense) => ({
+  type: 'EDIT_EXPENSE',
+  expense,
 });
