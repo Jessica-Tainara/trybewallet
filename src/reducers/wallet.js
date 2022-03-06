@@ -11,12 +11,8 @@ function walletReducer(state = INITIAL_STATE, action) {
       delete state.expense;
       return {
         ...state,
-        expenses: state.expenses.map((ex) => {
-          if (ex.id === action.expense.id) {
-            return action.expense;
-          }
-          return ex;
-        }),
+        expenses: state.expenses
+          .map((ex) => (ex.id === action.expense.id ? action.expense : ex)),
       };
     }
     return {

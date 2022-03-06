@@ -24,21 +24,40 @@ class Table extends React.Component {
             </tr>
           </thead>
           <tbody>
-
             {expenses
               .map((item) => {
                 const {
-                  id, description, tag: Tag, method: Method, value: Val,
-                  exchangeRates: rates, currency } = item;
+                  id, description, tag, method, value,
+                  exchangeRates, currency } = item;
                 return (
                   <tr key={ id }>
                     <td role="cell">{description}</td>
-                    <td role="cell">{Tag}</td>
-                    <td role="cell">{Method}</td>
-                    <td role="cell">{parseFloat(Val) % 1 === 0 ? `${Val}.00` : Val}</td>
-                    <td role="cell">{rates[currency].name.split('/')[0]}</td>
-                    <td role="cell">{parseFloat(rates[currency].ask).toFixed(2)}</td>
-                    <td role="cell">{rates[currency].ask * Val}</td>
+                    <td role="cell">{tag}</td>
+                    <td role="cell">{method}</td>
+                    <td
+                      role="cell"
+                      name="valor"
+                    >
+                      {parseFloat(value) % 1 === 0 ? `${value}.00` : value}
+                    </td>
+                    <td
+                      role="cell"
+                      name="moeda"
+                    >
+                      {exchangeRates[currency].name.split('/')[0]}
+                    </td>
+                    <td
+                      role="cell"
+                      name="cambio"
+                    >
+                      {parseFloat(exchangeRates[currency].ask).toFixed(2)}
+                    </td>
+                    <td
+                      role="cell"
+                      name="valor-convertido"
+                    >
+                      {(exchangeRates[currency].ask * value).toFixed(2)}
+                    </td>
                     <td role="cell">Real</td>
                     <td role="cell">
                       <button

@@ -96,7 +96,7 @@ class Form extends React.Component {
               value={ currency }
             >
               {currencies.map((curr) => curr !== 'USDT' && (
-                <option key={ curr } value={ curr }>{ curr }</option>
+                <option key={ curr } data-testid={ curr } value={ curr }>{ curr }</option>
               ))}
             </select>
           </label>

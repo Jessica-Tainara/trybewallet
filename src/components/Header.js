@@ -5,10 +5,11 @@ import PropTypes from 'prop-types';
 class Header extends React.Component {
   render() {
     const { email, expenses } = this.props;
-    let total = 0;
+    let total = '0.00';
     if (expenses.length > 0) {
-      expenses.forEach((ex) => {
-        total += parseFloat(ex.value * ex.exchangeRates[ex.currency].ask);
+      expenses.forEach(({ value, exchangeRates, currency }) => {
+        total = (parseFloat(total) + parseFloat(value * exchangeRates[currency].ask))
+          .toFixed(2);
       });
     }
 
