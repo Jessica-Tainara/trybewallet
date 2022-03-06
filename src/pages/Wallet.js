@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addExpense, deleteExpense } from '../actions';
+import Header from '../components/Header';
 
 class Wallet extends React.Component {
   constructor() {
@@ -17,6 +18,7 @@ class Wallet extends React.Component {
       total: 0,
       currencies: [],
       listExpenses: [],
+      edit: false,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleClickSubmit = this.handleClickSubmit.bind(this);
@@ -24,14 +26,8 @@ class Wallet extends React.Component {
 
   componentDidMount() {
     const { expenses } = this.props;
-    let total = 0;
-    const sumExpenses = () => expenses.length > 0 && expenses.forEach((ex) => {
-      total += parseFloat(ex.value * ex.exchangeRates[ex.currency].ask);
-    });
-    sumExpenses();
     this.setState({
       listExpenses: expenses,
-      total,
 
     });
     fetch('https://economia.awesomeapi.com.br/json/all')
@@ -82,15 +78,11 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email, dispatch } = this.props;
-    const { total, currencies, value, method, tag, listExpenses } = this.state;
+    const { dispatch } = this.props;
+    const { total, currencies, value, method, tag, listExpenses, edit } = this.state;
     return (
       <div>
-        <header>
-          <span data-testid="email-field">{`Email: ${email}`}</span>
-          <span data-testid="total-field">{`Despesa Total: R$ ${total}`}</span>
-          <span data-testid="header-currency-field">BRL</span>
-        </header>
+        <Header />
         <form>
           <label htmlFor="value">
             Valor
@@ -160,7 +152,7 @@ class Wallet extends React.Component {
             type="button"
             onClick={ this.handleClickSubmit }
           >
-            Adicionar despesa
+            {edit ? 'Editar despesa' : 'Adicionar despesa'}
           </button>
         </form>
         <table border="1">
@@ -220,7 +212,6 @@ class Wallet extends React.Component {
   }
 }
 Wallet.propTypes = {
-  email: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
   expenses: PropTypes.func.isRequired,
 
