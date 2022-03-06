@@ -45,8 +45,8 @@ class Form extends React.Component {
   }
 
   handleClickSubmit() {
-    const { dispatch, expense, expenses } = this.props;
-    if (expense) {
+    const { dispatch, expense, expenses, edit } = this.props;
+    if (expense && !edit) {
       dispatch(addExpense({
         id: expense.id,
         ...this.state,
@@ -60,7 +60,7 @@ class Form extends React.Component {
         .then((response) => response.json())
         .then((data) => {
           dispatch(addExpense({
-            id: expenses.length,
+            id: expenses.length > 0 ? expenses[expenses.length - 1].id + 1 : 0,
             ...this.state,
             exchangeRates: data,
           }));
@@ -82,7 +82,7 @@ class Form extends React.Component {
             <input
               type="number"
               data-testid="value-input"
-              value={ edit ? expense.value : value }
+              value={ edit && expense ? expense.value : value }
               id="value"
               name="value"
               onChange={ this.handleInputChange }
@@ -95,7 +95,7 @@ class Form extends React.Component {
               data-testid="description-input"
               id="description"
               name="description"
-              value={ edit ? expense.description : description }
+              value={ edit && expense ? expense.description : description }
               onChange={ this.handleInputChange }
             />
           </label>
@@ -106,7 +106,7 @@ class Form extends React.Component {
               id="currency"
               name="currency"
               onChange={ this.handleInputChange }
-              value={ edit ? expense.currency : currency }
+              value={ edit && expense ? expense.currency : currency }
             >
               {currencies.map((curr) => curr !== 'USDT' && (
                 <option key={ curr } data-testid={ curr } value={ curr }>{ curr }</option>
@@ -119,7 +119,7 @@ class Form extends React.Component {
               data-testid="method-input"
               id="method"
               name="method"
-              value={ edit ? expense.method : method }
+              value={ edit && expense ? expense.method : method }
               onChange={ this.handleInputChange }
             >
               <option value="Cartão de crédito">Cartão de crédito</option>
@@ -134,7 +134,7 @@ class Form extends React.Component {
               id="tag"
               name="tag"
               onChange={ this.handleInputChange }
-              value={ expense ? expense.tag : tag }
+              value={ edit && expense ? expense.tag : tag }
             >
               {['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde']
                 .map((category) => (
