@@ -64,7 +64,7 @@ class Table extends React.Component {
                         type="button"
                         data-testid="edit-btn"
                         onClick={ () => {
-                          dispatch(editExpense(item));
+                          dispatch(editExpense(item, true));
                         } }
                       >
                         Editar

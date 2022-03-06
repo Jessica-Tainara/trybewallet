@@ -29,6 +29,7 @@ function walletReducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       expense: action.expense,
+      edit: action.edit,
     };
   case 'GET_CURRENCIES':
     return {

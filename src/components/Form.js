@@ -1,18 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addExpense, getCurrencies } from '../actions';
+import { addExpense, getCurrencies, editExpense } from '../actions';
+
+const initialState = {
+  value: 0,
+  description: '',
+  currency: 'CAD',
+  method: 'Cartão de crédito',
+  tag: 'Alimentação',
+};
 
 class Form extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      value: 0,
-      description: '',
-      currency: 'CAD',
-      method: 'Cartão de crédito',
-      tag: 'Alimentação',
+      ...initialState,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleClickSubmit = this.handleClickSubmit.bind(this);
@@ -28,7 +32,13 @@ class Form extends React.Component {
   }
 
   handleInputChange({ target }) {
+    const { expense, edit, dispatch } = this.props;
     const { name, value } = target;
+    if (edit) {
+      const { value: val, description, currency, method, tag } = expense;
+      this.setState({ value: val, description, currency, method, tag });
+      dispatch(editExpense(expense, false));
+    }
     this.setState({
       [name]: value,
     });
@@ -42,6 +52,9 @@ class Form extends React.Component {
         ...this.state,
         exchangeRates: expense.exchangeRates,
       }));
+      this.setState({
+        ...initialState,
+      });
     } else {
       fetch('https://economia.awesomeapi.com.br/json/all')
         .then((response) => response.json())
@@ -52,14 +65,14 @@ class Form extends React.Component {
             exchangeRates: data,
           }));
           this.setState({
-            value: 0,
+            ...initialState,
           });
         });
     }
   }
 
   render() {
-    const { expense, currencies } = this.props;
+    const { expense, currencies, edit } = this.props;
     const { value, method, tag, description, currency } = this.state;
     return (
       <div>
@@ -69,7 +82,7 @@ class Form extends React.Component {
             <input
               type="number"
               data-testid="value-input"
-              value={ value }
+              value={ edit ? expense.value : value }
               id="value"
               name="value"
               onChange={ this.handleInputChange }
@@ -82,7 +95,7 @@ class Form extends React.Component {
               data-testid="description-input"
               id="description"
               name="description"
-              value={ description }
+              value={ edit ? expense.description : description }
               onChange={ this.handleInputChange }
             />
           </label>
@@ -93,7 +106,7 @@ class Form extends React.Component {
               id="currency"
               name="currency"
               onChange={ this.handleInputChange }
-              value={ currency }
+              value={ edit ? expense.currency : currency }
             >
               {currencies.map((curr) => curr !== 'USDT' && (
                 <option key={ curr } data-testid={ curr } value={ curr }>{ curr }</option>
@@ -106,7 +119,7 @@ class Form extends React.Component {
               data-testid="method-input"
               id="method"
               name="method"
-              value={ method }
+              value={ edit ? expense.method : method }
               onChange={ this.handleInputChange }
             >
               <option value="Cartão de crédito">Cartão de crédito</option>
@@ -121,7 +134,7 @@ class Form extends React.Component {
               id="tag"
               name="tag"
               onChange={ this.handleInputChange }
-              value={ tag }
+              value={ expense ? expense.tag : tag }
             >
               {['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde']
                 .map((category) => (
@@ -145,6 +158,7 @@ Form.propTypes = {
   expense: PropTypes.string.isRequired,
   expenses: PropTypes.string.isRequired,
   currencies: PropTypes.string.isRequired,
+  edit: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -152,5 +166,6 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
   expense: state.wallet.expense,
   currencies: state.wallet.currencies,
+  edit: state.wallet.edit,
 });
 export default connect(mapStateToProps)(Form);
