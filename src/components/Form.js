@@ -36,15 +36,10 @@ class Form extends React.Component {
 
   handleClickSubmit() {
     const { dispatch, expense, expenses } = this.props;
-    const { value, description, currency, method, tag } = this.state;
     if (expense) {
       dispatch(addExpense({
         id: expense.id,
-        value,
-        description,
-        currency,
-        method,
-        tag,
+        ...this.state,
         exchangeRates: expense.exchangeRates,
       }));
     } else {
@@ -53,11 +48,7 @@ class Form extends React.Component {
         .then((data) => {
           dispatch(addExpense({
             id: expenses.length,
-            value,
-            description,
-            currency,
-            method,
-            tag,
+            ...this.state,
             exchangeRates: data,
           }));
           this.setState({
