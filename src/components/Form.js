@@ -77,7 +77,7 @@ class Form extends React.Component {
     return (
       <div className="form">
         <form>
-          <label className="labels" htmlFor="value">
+          <label className="labels p" htmlFor="value">
             Valor
             <input
               type="number"
@@ -88,18 +88,7 @@ class Form extends React.Component {
               onChange={ this.handleInputChange }
             />
           </label>
-          <label className="labels" htmlFor="description">
-            Descrição
-            <input
-              type="text"
-              data-testid="description-input"
-              id="description"
-              name="description"
-              value={ edit && expense ? expense.description : description }
-              onChange={ this.handleInputChange }
-            />
-          </label>
-          <label className="labels" htmlFor="currency">
+          <label className="labels p" htmlFor="currency">
             Moeda
             <select
               data-testid="currency-input"
@@ -113,19 +102,16 @@ class Form extends React.Component {
               ))}
             </select>
           </label>
-          <label className="labels" htmlFor="method">
-            Método de pagamento
-            <select
-              data-testid="method-input"
-              id="method"
-              name="method"
-              value={ edit && expense ? expense.method : method }
+          <label className="labels g" htmlFor="description">
+            Descrição
+            <input
+              type="text"
+              data-testid="description-input"
+              id="description"
+              name="description"
+              value={ edit && expense ? expense.description : description }
               onChange={ this.handleInputChange }
-            >
-              <option value="Cartão de crédito">Cartão de crédito</option>
-              <option value="Cartão de débito">Cartão de débito</option>
-              <option value="Dinheiro">Dinheiro</option>
-            </select>
+            />
           </label>
           <label className="labels" htmlFor="tag">
             Categoria
@@ -140,6 +126,20 @@ class Form extends React.Component {
                 .map((category) => (
                   <option key={ category } value={ category }>{ category }</option>
                 ))}
+            </select>
+          </label>
+          <label className="labels" htmlFor="method">
+            Método de pagamento
+            <select
+              data-testid="method-input"
+              id="method"
+              name="method"
+              value={ edit && expense ? expense.method : method }
+              onChange={ this.handleInputChange }
+            >
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
+              <option value="Dinheiro">Dinheiro</option>
             </select>
           </label>
           <button

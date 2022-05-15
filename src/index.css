@@ -14,15 +14,19 @@ code {
 .mainPage {
   background-color: #edf3fb;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   min-height: 614px;
 }
 .header {
   background-color: #ffffff;
   color: #6d5fde;
+  height: 100%;
 }
 .form {
   display: none;
+}
+.new {
+  background-color: #fbc234;
 }
 /* .labels{
   width: 100%;
@@ -43,7 +47,15 @@ code {
 }
 .form form {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
   height: 100%;
   justify-content: space-evenly;
+  padding: 50px;
+}
+.p input, select {
+  width: 80px;
+}
+.g input {
+  width: 290px;
 }
