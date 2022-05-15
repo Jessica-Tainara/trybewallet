@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.mainPage {
+  background-color: #edf3fb;
+  min-height: 614px;
+}
+.header {
+  background-color: #ffffff;
+  color: #6d5fde;
+}
+.form {
+  display: none;
+}
+.visible {
+  display: block;
+}

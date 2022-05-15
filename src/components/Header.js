@@ -15,10 +15,21 @@ class Header extends React.Component {
 
     return (
       <div>
-        <header>
+        <header className="header">
           <span data-testid="email-field">{`Email: ${email}`}</span>
           <span data-testid="total-field">{`Despesa Total: R$ ${total}`}</span>
           <span data-testid="header-currency-field">BRL</span>
+          <button
+            type="button"
+            className="new"
+            onClick={ () => {
+              const form = document.getElementsByClassName('form');
+              form[0].classList.toggle('visible');
+            } }
+          >
+            +
+
+          </button>
         </header>
       </div>);
   }

@@ -6,7 +6,7 @@ import { addExpense, getCurrencies, editExpense } from '../actions';
 const initialState = {
   value: 0,
   description: '',
-  currency: 'CAD',
+  currency: 'EUR',
   method: 'Cartão de crédito',
   tag: 'Alimentação',
 };
@@ -22,7 +22,7 @@ class Form extends React.Component {
     this.handleClickSubmit = this.handleClickSubmit.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     const { dispatch } = this.props;
     fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())
@@ -75,7 +75,7 @@ class Form extends React.Component {
     const { expense, currencies, edit } = this.props;
     const { value, method, tag, description, currency } = this.state;
     return (
-      <div>
+      <div className="form">
         <form>
           <label htmlFor="value">
             Valor
