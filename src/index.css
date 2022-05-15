@@ -20,13 +20,21 @@ code {
 .header {
   background-color: #ffffff;
   color: #6d5fde;
+  display: flex;
+  flex-direction: column;
   height: 100%;
+  width: 150%;
 }
 .form {
   display: none;
 }
 .new {
-  background-color: #fbc234;
+  background-color:#6d5fde;
+  border-style: none;
+  border-radius: 50px;
+  color: #ffffff;
+  height: 50px;
+  width: 100px;
 }
 /* .labels{
   width: 100%;

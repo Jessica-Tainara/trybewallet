@@ -16,6 +16,7 @@ class Header extends React.Component {
     return (
       <div>
         <header className="header">
+          <h1>TrybeWallet</h1>
           <span data-testid="email-field">{`Email: ${email}`}</span>
           <span data-testid="total-field">{`Despesa Total: R$ ${total}`}</span>
           <span data-testid="header-currency-field">BRL</span>
@@ -27,7 +28,7 @@ class Header extends React.Component {
               form[0].classList.toggle('visible');
             } }
           >
-            +
+            +  Nova despesa
 
           </button>
         </header>
