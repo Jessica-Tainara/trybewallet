@@ -9,9 +9,9 @@ class Table extends React.Component {
 
     return (
       <div>
-        <table border="1">
+        <table className="table" border="1">
           <thead>
-            <tr>
+            <tr className="cabeçalho">
               <th>Descrição</th>
               <th>Tag</th>
               <th>Método de pagamento</th>
@@ -23,14 +23,14 @@ class Table extends React.Component {
               <th>Editar/Excluir</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="body">
             {expenses
               .map((item) => {
                 const {
                   id, description, tag, method, value,
                   exchangeRates, currency } = item;
                 return (
-                  <tr key={ id }>
+                  <tr className="line" key={ id }>
                     <td role="cell">{description}</td>
                     <td role="cell">{tag}</td>
                     <td role="cell">{method}</td>
