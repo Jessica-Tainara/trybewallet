@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addUserEmail } from '../actions';
+import login from '../login.png';
+import text from '../texto.png';
+import logo from '../logo.png';
 
 class Login extends React.Component {
   constructor() {
@@ -26,27 +29,42 @@ class Login extends React.Component {
     const passLength = 6;
     const regex = /^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/i;
     return (
-      <div>
-        <h2>Login</h2>
-        <input
-          type="email"
-          data-testid="email-input"
-          value={ email }
-          onChange={ ({ target }) => { this.setState({ email: target.value }); } }
+      <div className="login">
+        <div className="inputs">
+          <img className="logo" alt="logo" src={ logo } style={ { width: '150px', marginLeft: '200px', marginBottom: '100px' } } />
+          <input
+            type="email"
+            data-testid="email-input"
+            value={ email }
+            onChange={ ({ target }) => { this.setState({ email: target.value }); } }
+          />
+          <input
+            type="password"
+            data-testid="password-input"
+            value={ password }
+            onChange={ ({ target }) => { this.setState({ password: target.value }); } }
+          />
+          <button
+            type="button"
+            onClick={ this.handleClickSubmit }
+            disabled={ password.length < passLength || !regex.test(email) }
+          >
+            Entrar
+          </button>
+        </div>
+
+        <img
+          alt="login"
+          className="img-login"
+          src={ login }
+          style={ { width: '1200px', margin: '0', padding: '0' } }
         />
-        <input
-          type="password"
-          data-testid="password-input"
-          value={ password }
-          onChange={ ({ target }) => { this.setState({ password: target.value }); } }
+        <img
+          alt="login"
+          className="img"
+          src={ text }
+          style={ { width: '450px', marginLeft: '900px', marginTop: '-700px' } }
         />
-        <button
-          type="button"
-          onClick={ this.handleClickSubmit }
-          disabled={ password.length < passLength || !regex.test(email) }
-        >
-          Entrar
-        </button>
       </div>);
   }
 }
