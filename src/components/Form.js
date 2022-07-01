@@ -46,6 +46,9 @@ class Form extends React.Component {
 
   handleClickSubmit() {
     const { dispatch, expense, expenses, edit } = this.props;
+    const form = document.getElementsByClassName('form');
+    form[0].classList.toggle('visible');
+
     if (expense && !edit) {
       dispatch(addExpense({
         id: expense.id,
@@ -90,17 +93,19 @@ class Form extends React.Component {
           </label>
           <label className="labels p" htmlFor="currency">
             Moeda
-            <select
-              data-testid="currency-input"
-              id="currency"
-              name="currency"
-              onChange={ this.handleInputChange }
-              value={ edit && expense ? expense.currency : currency }
-            >
-              {currencies.map((curr) => curr !== 'USDT' && (
-                <option key={ curr } data-testid={ curr } value={ curr }>{ curr }</option>
-              ))}
-            </select>
+            <div className="custom-select" style={ { width: '200px' } }>
+              <select
+                data-testid="currency-input"
+                id="currency"
+                name="currency"
+                onChange={ this.handleInputChange }
+                value={ edit && expense ? expense.currency : currency }
+              >
+                {currencies.map((curr) => curr !== 'USDT' && (
+                  <option key={ curr } data-testid={ curr } value={ curr }>{ curr }</option>
+                ))}
+              </select>
+            </div>
           </label>
           <label className="labels g" htmlFor="description">
             Descrição
@@ -115,18 +120,20 @@ class Form extends React.Component {
           </label>
           <label className="labels" htmlFor="tag">
             Categoria
-            <select
-              data-testid="tag-input"
-              id="tag"
-              name="tag"
-              onChange={ this.handleInputChange }
-              value={ edit && expense ? expense.tag : tag }
-            >
-              {['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde']
-                .map((category) => (
-                  <option key={ category } value={ category }>{ category }</option>
-                ))}
-            </select>
+            <div className="custom-select" style={ { width: '200px' } }>
+              <select
+                data-testid="tag-input"
+                id="tag"
+                name="tag"
+                onChange={ this.handleInputChange }
+                value={ edit && expense ? expense.tag : tag }
+              >
+                {['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde']
+                  .map((category) => (
+                    <option key={ category } value={ category }>{ category }</option>
+                  ))}
+              </select>
+            </div>
           </label>
           <label className="labels" htmlFor="method">
             Método de pagamento
@@ -145,8 +152,24 @@ class Form extends React.Component {
           <button
             type="button"
             onClick={ this.handleClickSubmit }
+            className="new cancel"
           >
             {expense ? 'Editar despesa' : 'Adicionar despesa'}
+          </button>
+          <button
+            type="button"
+            className="new cancel"
+            onClick={ () => {
+              const form = document.getElementsByClassName('form');
+              form[0].classList.toggle('visible');
+              if (expense) {
+                this.setState({
+                  ...initialState,
+                });
+              }
+            } }
+          >
+            Cancelar
           </button>
         </form>
       </div>);
