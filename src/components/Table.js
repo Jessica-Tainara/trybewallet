@@ -2,6 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { deleteExpense, editExpense } from '../actions';
+import excluir from '../excluir.png';
+import editar from '../editar.png';
+import Alimentação from '../suprimentos.png';
+import Trabalho from '../pasta.png';
+import Saúde from '../saude.png';
+import Lazer from '../guarda-sol.png';
+import Transporte from '../carro.png';
+
+const icons = { Alimentação, Trabalho, Saúde, Lazer, Transporte };
 
 class Table extends React.Component {
   render() {
@@ -31,8 +40,16 @@ class Table extends React.Component {
                   exchangeRates, currency } = item;
                 return (
                   <tr className="line" key={ id }>
-                    <td role="cell">{description}</td>
-                    <td role="cell">{tag}</td>
+                    <td className="first" role="cell">{description}</td>
+                    <td role="cell">
+                      <abbr title={ tag }>
+                        <img
+                          alt={ tag }
+                          src={ icons[tag] }
+                          style={ { width: '40px', margin: '0', padding: '0' } }
+                        />
+                      </abbr>
+                    </td>
                     <td role="cell">{method}</td>
                     <td
                       role="cell"
@@ -59,24 +76,38 @@ class Table extends React.Component {
                       {(exchangeRates[currency].ask * value).toFixed(2)}
                     </td>
                     <td role="cell">Real</td>
-                    <td role="cell">
+                    <td className="last" role="cell">
                       <button
                         type="button"
                         data-testid="edit-btn"
+                        className="favorite-button"
                         onClick={ () => {
                           dispatch(editExpense(item, true));
+                          const form = document.getElementsByClassName('form');
+                          form[0].classList.toggle('visible');
                         } }
                       >
-                        Editar
+                        <input
+                          type="image"
+                          alt="button-favorite"
+                          src={ editar }
+                          style={ { width: '20px', margin: '0', padding: '0' } }
+                        />
                       </button>
                       <button
                         type="button"
                         data-testid="delete-btn"
+                        className="favorite-button"
                         onClick={ () => {
                           dispatch(deleteExpense(item));
                         } }
                       >
-                        Excluir
+                        <input
+                          type="image"
+                          alt="button-favorite"
+                          src={ excluir }
+                          style={ { width: '20px', margin: '0', padding: '0' } }
+                        />
                       </button>
                     </td>
                   </tr>
