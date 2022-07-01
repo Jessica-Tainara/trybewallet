@@ -31,7 +31,12 @@ class Login extends React.Component {
     return (
       <div className="login">
         <div className="inputs">
-          <img className="logo" alt="logo" src={ logo } style={ { width: '150px', marginLeft: '200px', marginBottom: '100px' } } />
+          <img
+            className="logo"
+            alt="logo"
+            src={ logo }
+            style={ { width: '150px', marginLeft: '200px', marginBottom: '100px' } }
+          />
           <input
             type="email"
             data-testid="email-input"
