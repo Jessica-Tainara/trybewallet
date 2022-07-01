@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import logo from '../loo.png';
+import logo from '../logo.png';
+import despesa from '../despesa.png';
 
 class Header extends React.Component {
   render() {
@@ -17,15 +18,19 @@ class Header extends React.Component {
     return (
       <div className="header">
         <header className="header">
-          <img alt="logo" src={ logo } style={ { width: '50px', height: '50px' } } />
-          <span data-testid="email-field">{`Email: ${email}`}</span>
-          <span
-            className="total-field"
-            data-testid="total-field"
-          >
-            {`Despesa Total: R$ ${total}`}
-          </span>
-          <span data-testid="header-currency-field">BRL</span>
+          <img className="logo" alt="logo" src={ logo } style={ { width: '150px' } } />
+          <div className="total-field">
+            <span
+              data-testid="total-field"
+              className="despesa"
+            >
+              Despesa Total:
+            </span>
+            <img alt="logo" src={ despesa } style={ { width: '50px', height: '50px' } } />
+            <span className="valor">
+              {`R$ ${total}`}
+            </span>
+          </div>
           <button
             type="button"
             className="new"
@@ -37,6 +42,8 @@ class Header extends React.Component {
             +  Nova despesa
 
           </button>
+          <span data-testid="email-field">{`Email: ${email}`}</span>
+          <span data-testid="header-currency-field">BRL</span>
         </header>
       </div>);
   }
