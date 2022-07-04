@@ -25,23 +25,24 @@ code {
   margin: 0;
 }
 .mainPage {
-  align-items: flex-start;
   background-color: #e7edfd;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
   min-height: 100%;
 }
 .header {
   align-items: center;
-  background-color: rgb(25 40 92);
+  background-color: rgb(83 60 156);
+  bottom: 0;
   color: #c2c2c2;
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
+  justify-content: space-around;
   min-height: 100%;
-  width: 250px;
+  padding-bottom: 1%;
+  padding-top: 2%;
   position: fixed;
+  width: 250px;
 }
 .form {
   display: none;
@@ -52,80 +53,58 @@ code {
   border-radius: 50px;
   color: #ffffff;
   height: 50px;
+  margin-inline: 2px;
   margin-top: 10px;
+  width: 150px;
 
 }
 
 .visible {
   align-items: flex-start;
   align-self: center;
-  background-color: rgb(25 40 92 / 78%);
+  background-color: #54419c;
   border-radius: 10px;
-  color:blanchedalmond;
+  color: blanchedalmond;
   display: flex;
   flex-direction: column;
-  height: 400px;
+  height: 500px;
   justify-content: center;
-  margin-left: 350px;
+  margin-left: 600px;
+  max-width: 500px;
   padding: 20px;
   position: fixed;
-  min-width: 40%;
-  max-width: 40%;
-
 }
-.form form {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  height: 100%;
-  justify-content: space-evenly;
-  padding: 50px;
-}
-
 
 .total-field {
-  align-self: end;
-  background-color: #19285c;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  align-content: stretch;
+  border-block: 1px groove white;
   color: rgb(255, 255, 255);
   display: flex;
   flex-wrap: wrap;
   height: 100px;
-  width: 140px;
-  top: 130px;
-  position: absolute;
+  justify-content: center;
+  padding-top: 25px;
+  width: 150px;
 }
+
 .table {
-  background-color: #e7edfd;
-  color: #4c4b4b;
-  border-style: none;
-  border-collapse:separate;
-  text-indent: initial;
   border-spacing: 0px;
-  text-indent: 1px;
+  border-style: none;
+  color: #4c4b4b;
   margin-left: 270px;
   margin-top: 30px;
+  text-indent: 1px;
 }
 
 .cabeçalho th {
-  background-color: #e7edfd;
   border-style: none;
-  border-width: 0ch;
-  border-bottom: 1px solid #e7edfd;
-  margin-bottom: 15px;
+  border-bottom: 1px solid #8985b599;
   padding: 15px;
-  font-size: 14px;
   font-weight: 100;
 }
 
-.line {
-  border-radius: 10px;
-  height: 20px;
-}
 .line td {
   background-color: #c9cfde;
-  /* border-radius: 10px; */
   border-style: none;
   border-top-style: solid;
   border-width: 5px;
@@ -146,14 +125,7 @@ code {
   border-bottom-right-radius: 10px;
 }
 
-.despesa {
-  font-size: 14px;
-  margin: auto;
-}
-.valor {
-  margin-top: 10px;
-}
-.favorite-button{
+.icons-button{
   background-color: transparent;
   border-color: #3b3c3f;
   border-style: none;
@@ -161,34 +133,43 @@ code {
   height: 20px;
   margin-left: 8px;
 }
-.favorite-button input {
+.icons-button input {
   filter: invert(20%) sepia(91%) saturate(8%) hue-rotate(
     346deg) brightness(104%) contrast(90%);
   background-color: transparent;
 }
 
 .login {
-  background-color: #e7edfd;
+  background-color: #e9effd;
   display: flex;
-  flex-direction: column;
-  height: 100%;
+  flex-direction: row;
+  max-width: 100%;
+  min-height: 100%;
   padding: 0;
 
 }
 .img-login {
   position: fixed;
-  top: -140px;
-  left: 180px;
+  width: 45%;
+  left: 30%;
+  bottom: 0;
+}
+.img  {
+  bottom: 0;
+  margin-left: 70%;
+  position: fixed;
+  width: 30%;
 }
 .login input {
-  background-color: transparent;
-  border-style: 1px solid white;
-  border-top: white;
-  border-radius: 5px;
   height: 50px;
-  width: 400px;
-  margin-left: 60px;
   margin-bottom: 15px;
+  margin-left: 60px;
+  width: 400px;
+}
+.logo {
+  margin-left: 150px;
+  margin-bottom: 50px;
+  width: 25%;
 }
 .login button {
   background-color: #F41493;
@@ -199,18 +180,25 @@ code {
   margin-left: 60px;
   width: 403px;
 }
+.login button:disabled {
+  background-color: #182b72;
+  border-style:hidden;
+  border-radius: 5px;
+  color: #ffffff;
+  height: 50px;
+  margin-left: 60px;
+  width: 403px;
+}
 .visible select {
-  background-color: #ffffff;
+  background-color: #54419c;
   border-radius: 20px;
-  color: #19285c;
+  color: #e7edfd;
   height: 35px;
   font-size: 15px;
   margin-top: 10px;
-
 }
 .cancel{
   background-color: #8d61dd;
-  width: 100%;
 
 }
 .visible input {
@@ -235,13 +223,46 @@ form label {
 }
 
 .inputs {
-  background-color: rgb(25 40 92);
+  display: flex;
+  background-color: rgb(83 60 156);
   border-top-right-radius: 80px;
-  height: 100%;
-  width: 60%;
+  min-height: 100%;
+  min-width: 60%;
+  max-width: 60%;
   padding-top: 100px;
+  flex-direction: column;
 }
 
-.g {
-  width: 90%;
+.float-label input {
+  background-color: transparent;
+  color: white;
+  width: 380px;
+  height: 40px;
+  padding: 14px 16px 0 10px;
+  border: 1px solid rgba(255, 255, 255, 0.281);
+  border-radius: 10px;
+  outline: none;
+  background: rgba(255, 255, 255, 0);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+.float-label label {
+  background-color: rgb(83 60 156);
+  border-radius: 5px;
+  color: rgb(255, 255, 255, 72%);
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  left: 75px;
+  margin-top: -10px;
+  padding: 0 12px;
+  padding-inline: 5px;
+  pointer-events: none;
+  position: absolute;
+}
+.float-label:focus-within label {
+  color: #f05894;
+}
+.float-label input:focus{
+  border: 2px solid #f05894;
 }
