@@ -116,7 +116,7 @@ class Form extends React.Component {
               onChange={ this.handleInputChange }
             />
           </label>
-          <label className="labels" htmlFor="tag">
+          <label htmlFor="tag">
             Categoria
             <div className="custom-select" style={ { width: '200px' } }>
               <select
@@ -133,7 +133,7 @@ class Form extends React.Component {
               </select>
             </div>
           </label>
-          <label className="labels" htmlFor="method">
+          <label htmlFor="method">
             Método de pagamento
             <select
               data-testid="method-input"

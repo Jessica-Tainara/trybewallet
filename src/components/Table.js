@@ -80,7 +80,7 @@ class Table extends React.Component {
                       <button
                         type="button"
                         data-testid="edit-btn"
-                        className="favorite-button"
+                        className="icons-button"
                         onClick={ () => {
                           dispatch(editExpense(item, true));
                           const form = document.getElementsByClassName('form');
@@ -89,7 +89,7 @@ class Table extends React.Component {
                       >
                         <input
                           type="image"
-                          alt="button-favorite"
+                          alt="button-icons"
                           src={ editar }
                           style={ { width: '20px', margin: '0', padding: '0' } }
                         />
@@ -97,14 +97,14 @@ class Table extends React.Component {
                       <button
                         type="button"
                         data-testid="delete-btn"
-                        className="favorite-button"
+                        className="icons-button"
                         onClick={ () => {
                           dispatch(deleteExpense(item));
                         } }
                       >
                         <input
                           type="image"
-                          alt="button-favorite"
+                          alt="button-icons"
                           src={ excluir }
                           style={ { width: '20px', margin: '0', padding: '0' } }
                         />
