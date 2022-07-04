@@ -80,7 +80,7 @@ class Form extends React.Component {
     return (
       <div className="form">
         <form>
-          <label className="labels p" htmlFor="value">
+          <label htmlFor="value">
             Valor
             <input
               type="number"
@@ -91,7 +91,7 @@ class Form extends React.Component {
               onChange={ this.handleInputChange }
             />
           </label>
-          <label className="labels p" htmlFor="currency">
+          <label htmlFor="currency">
             Moeda
             <div className="custom-select" style={ { width: '200px' } }>
               <select
@@ -106,7 +106,7 @@ class Form extends React.Component {
               </select>
             </div>
           </label>
-          <label className="labels g" htmlFor="description">
+          <label htmlFor="description">
             Descrição
             <input
               type="text"
@@ -150,7 +150,7 @@ class Form extends React.Component {
           <button
             type="button"
             onClick={ this.handleClickSubmit }
-            className="new cancel"
+            className="new"
           >
             {expense ? 'Editar despesa' : 'Adicionar despesa'}
           </button>
