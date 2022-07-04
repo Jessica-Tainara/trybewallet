@@ -95,14 +95,13 @@ class Form extends React.Component {
             Moeda
             <div className="custom-select" style={ { width: '200px' } }>
               <select
-                data-testid="currency-input"
                 id="currency"
                 name="currency"
                 onChange={ this.handleInputChange }
                 value={ edit && expense ? expense.currency : currency }
               >
                 {currencies.map((curr) => curr !== 'USDT' && (
-                  <option key={ curr } data-testid={ curr } value={ curr }>{ curr }</option>
+                  <option key={ curr } value={ curr }>{ curr }</option>
                 ))}
               </select>
             </div>
@@ -111,7 +110,6 @@ class Form extends React.Component {
             Descrição
             <input
               type="text"
-              data-testid="description-input"
               id="description"
               name="description"
               value={ edit && expense ? expense.description : description }

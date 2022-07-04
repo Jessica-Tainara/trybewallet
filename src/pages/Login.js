@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -35,20 +36,35 @@ class Login extends React.Component {
             className="logo"
             alt="logo"
             src={ logo }
-            style={ { width: '150px', marginLeft: '200px', marginBottom: '100px' } }
           />
-          <input
-            type="email"
-            data-testid="email-input"
-            value={ email }
-            onChange={ ({ target }) => { this.setState({ email: target.value }); } }
-          />
-          <input
-            type="password"
-            data-testid="password-input"
-            value={ password }
-            onChange={ ({ target }) => { this.setState({ password: target.value }); } }
-          />
+          <div className="float-label">
+            <input
+              type="email"
+              id="email-input"
+              value={ email }
+              onChange={ ({ target }) => { this.setState({ email: target.value }); } }
+            />
+            <label
+              htmlFor="email-input"
+            >
+              E-mail
+
+            </label>
+          </div>
+          <div className="float-label">
+            <input
+              type="password"
+              id="password-input"
+              value={ password }
+              onChange={ ({ target }) => { this.setState({ password: target.value }); } }
+            />
+            <label
+              htmlFor="password-input"
+            >
+              Senha
+
+            </label>
+          </div>
           <button
             type="button"
             onClick={ this.handleClickSubmit }
@@ -62,13 +78,11 @@ class Login extends React.Component {
           alt="login"
           className="img-login"
           src={ login }
-          style={ { width: '1200px', margin: '0', padding: '0' } }
         />
         <img
           alt="login"
           className="img"
           src={ text }
-          style={ { width: '450px', marginLeft: '900px', marginTop: '-700px' } }
         />
       </div>);
   }
